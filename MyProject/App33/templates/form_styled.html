@@ -1,0 +1,146 @@
+{% extends "_layout.html" %}
+
+{% block title %}Forms{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Стилізація форм та повідомлень валідації.</h1>
+<p>
+    Базові можливості Python зі стилізації форм обмежені, більші можливості
+    надає bootstrap, але для його використання необхідно відмовитись від 
+    автоматичної побудови розмітки. 
+</p>
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.first_name.id_for_label }}"
+                    id="first-name-addon">
+                        <i class="bi bi-person-badge"></i>
+                </label>
+                <input 
+                    type="text" 
+                    class="form-control {{ form.first_name.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.first_name.html_name }}"
+                    id="{{ form.first_name.id_for_label }}"
+                    value="{{ form.first_name.value|default_if_none:'' }}"
+                    placeholder="{{ form.first_name.label }}" 
+                    aria-label="{{ form.first_name.label }}" 
+                    aria-describedby="first-name-addon"/>
+
+                {% if 'first_name' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.first_name.errors.as_text }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.last_name.id_for_label }}"
+                    id="last-name-addon">
+                        <i class="bi bi-person-vcard"></i>
+                </label>
+                <input 
+                    type="text" 
+                    class="form-control {{ form.last_name.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.last_name.html_name }}"
+                    id="{{ form.last_name.id_for_label }}"
+                    value="{{ form.last_name.value|default_if_none:'' }}"
+                    placeholder="{{ form.last_name.label }}" 
+                    aria-label="{{ form.last_name.label }}" 
+                    aria-describedby="last-name-addon"/>
+                {% if 'last_name' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.last_name.errors.as_text }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.password.id_for_label }}"
+                    id="password-addon">
+                        <i class="bi bi-lock"></i>
+                </label>
+                <input 
+                    type="password" 
+                    class="form-control {{ form.password.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.password.html_name }}"
+                    id="{{ form.password.id_for_label }}"
+                    value="{{ form.password.value|default_if_none:'' }}"
+                    placeholder="{{ form.password.label }}" 
+                    aria-label="{{ form.password.label }}" 
+                    aria-describedby="password-addon"/>
+
+                {% if 'password' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.password.errors }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.repeat.id_for_label }}"
+                    id="repeat-addon">
+                        <i class="bi bi-unlock"></i>
+                </label>
+                <input 
+                    type="password" 
+                    class="form-control {{ form.repeat.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.repeat.html_name }}"
+                    id="{{ form.repeat.id_for_label }}"
+                    value="{{ form.repeat.value|default_if_none:'' }}"
+                    placeholder="{{ form.repeat.label }}" 
+                    aria-label="{{ form.repeat.label }}" 
+                    aria-describedby="repeat-addon"/>
+
+                {% if 'repeat' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.repeat.errors }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-check">
+                <input 
+                    class="form-check-input {{ form.is_agree.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.is_agree.html_name }}"
+                    id="{{ form.is_agree.id_for_label }}"
+                    type="checkbox" />
+                    
+                <label 
+                    class="form-check-label" 
+                    for="{{ form.is_agree.id_for_label }}">
+                    {{ form.is_agree.help_text }}
+                </label>
+
+                {% if 'is_agree' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.is_agree.errors }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Надіслати</button>
+        </div>
+    </div>
+</form>
+{% endblock %}

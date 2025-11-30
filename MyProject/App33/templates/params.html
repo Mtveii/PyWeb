@@ -1,0 +1,66 @@
+{% extends "_layout.html" %}
+
+{% block title %}Params{% endblock %}
+
+{% block content %}
+<h1 class="display-4">Передача параметрів у запиті</h1>
+<p>
+    Для того щоб визначити схеми передачі параметрів розглянемо структуру HTTP-запиту. 
+</p>
+<pre>
+POST  /params  HTTP/1.1              POST - метод запиту, /params - шлях (path), HTTP/1.1 - протокол та версія
+Host: localhost                      Заголовки - ключ: значення, по одному на рядок
+Connection: close
+Content-Type: application/json 
+                                     Порожній рядок відділяє заголовки та тіло (за наявності)
+{"Hello": "World!"}                  До кінця пакету - вміст тіла
+</pre>
+<p>
+    Передача даних може здійснюватись через:
+</p>
+<ul>
+    <li>метод запиту: рекомендовано через стандартний перелік 
+        (<a href="?about=GET">GET</a>{{about_get}}, <a href="?about=POST">POST</a>{{about_post}}, PUT, PATCH, DELETE)
+        дозволяється використання поза стандартних методів (LINK, RECALL, ...)
+    </li>
+    <li>
+        шлях або URL: параметри, що передаються таким способом, називають Query- або URL-параметрами.
+        Вони формуються за принципом: після адреси додається знак "?" після якого слідують 
+        пари ключ=значення, розділені між собою знаками "&"
+        Наприклад: <code>/params?x=10&y=20&user=admin</code>, для включення до параметрів спец.символів
+        їх необхідно URL-кодувати: firm=H&M <code>firm=H%26M</code>
+    </li>
+    <li>
+        заголовки: як значеннями стандартних заголовків, так і власними заголовками
+    </li>
+    <li>
+        тіло: фактично необмежений за ємністю контейнер для даних довільного формату. 
+    </li>
+</ul>
+<a href="?x=10&y=20&user=admin">x=10&y=20&user=admin</a>
+{{params}}
+<br/>
+<span>Дані про користувача: {{user}}</span>
+<p>
+    Посилання з параметрами також створюють форми, 
+    для яких зазначено метод get (див. _layout),
+    Введіть щось у поле пошуку в заголовковій частині сайту на 
+    натисність "Пошук"
+</p>
+<p>
+    У пошуковому запиті передано: {{q}}
+</p>
+<h3>Якщо адреса сторінки https://localhost/params/query, то:</h3>
+<table class="table">
+    <thead>
+        <tr><th>Скорочена адреса</th><th>Повна адреса</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>href="home"</td><td>https://localhost/params/home</td></tr>
+        <tr><td>href="/home"</td><td>https://localhost/home</td></tr>
+        <tr><td>href="//home"</td><td>https://home</td></tr>
+        <tr><td>href="?home"</td><td>https://localhost/params/query?home</td></tr>
+        <tr><td>href="#home"</td><td>https://localhost/params/query#home (без переходу)</td></tr>
+    </tbody>
+</table>
+{% endblock %}

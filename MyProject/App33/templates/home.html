@@ -1,0 +1,63 @@
+{% extends "_layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h1 class="display-4">{{page_header}}</h1>
+
+<h2 class="display-5">Зміст</h2>
+
+<div class="list-group">
+    <a class="list-group-item list-group-item-action fs-5" href="/clonning">
+        <i class="bi bi-copy"></i> 
+        Інструкція з клонування проєкту з Гітхаба
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/layouting">
+        <i class="bi bi-layout-text-window-reverse"></i> 
+        Шаблонізація - створення єдиного оточення
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/statics">
+        <i class="bi bi-file-image"></i> 
+        Підключення статичних файлів-ресурсів
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/params">
+        <i class="bi bi-file-bar-graph"></i>
+        Передача параметрів у запиті
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/forms">
+        <i class="bi bi-ui-checks"></i>
+        Форми. Передача комплексних параметрів
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/form-styled">
+        <i class="bi bi-postcard"></i>
+        Стилізація форм та повідомлень валідації
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/form-delivery">
+        <i class="bi bi-truck"></i>
+        Форми: практика. Форма доставки замовлення
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/models">
+        <i class="bi bi-database-add"></i>
+        Моделі. Збереження даних у БД
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/signup">
+        <i class="bi bi-person-add"></i>
+        Моделі. Реєстрація нового користувача
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/params">
+        <i class="bi bi-file-bar-graph"></i>
+        Передача параметрів у запиті
+    </a>
+        <a class="list-group-item list-group-item-action fs-5" href="/product">
+        <i class="bi bi-bag-plus-fill"></i>
+        форма додавання продукту
+    </a>
+    <a class="list-group-item list-group-item-action fs-5" href="/form_user">
+        <i class="bi bi-person-add"></i>
+        форма додавання пользователя 
+    </a>
+</div>
+<br/>
+<i style="font-weight:700;">Сторінка завантажена о {{now}}</i>
+
+{% endblock %}

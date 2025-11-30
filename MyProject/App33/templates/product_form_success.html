@@ -1,0 +1,14 @@
+{% extends "_layout.html" %}
+
+{% block title %}Успіх{% endblock %}
+
+{% block content %}
+<h1 class="display-4 mb-4">Товар додано</h1>
+<div class="col-md-6">
+    <p><strong>Назва:</strong> {{ form.name.value }}</p>
+    <p><strong>Ціна:</strong> {{ form.price.value }}</p>
+    <p><strong>Опис:</strong> {{ form.description.value }}</p>
+    <p><strong>Кількість:</strong> {{ form.quantity.value }}</p>
+</div>
+{% endblock %}
+

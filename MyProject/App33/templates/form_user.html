@@ -1,0 +1,117 @@
+{% extends "_layout.html" %}
+
+{% block title %}Forms{% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="row">
+
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.first_name.id_for_label }}"
+                    id="first-name-addon">
+                        <i class="bi bi-person-badge"></i>
+                </label>
+                <input 
+                    type="text" 
+                    class="form-control {{ form.first_name.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.first_name.html_name }}"
+                    id="{{ form.first_name.id_for_label }}"
+                    value="{{ form.first_name.value|default_if_none:'' }}"
+                    placeholder="{{ form.first_name.label }}" 
+                    aria-label="{{ form.first_name.label }}" 
+                    aria-describedby="first-name-addon"/>
+
+                {% if 'first_name' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.first_name.errors.as_text }}
+                </div>
+                {% endif %}
+            </div>
+
+
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.last_name.id_for_label }}"
+                    id="last-name-addon">
+                        <i class="bi bi-person-vcard"></i>
+                </label>
+                <input 
+                    type="text" 
+                    class="form-control {{ form.last_name.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.last_name.html_name }}"
+                    id="{{ form.last_name.id_for_label }}"
+                    value="{{ form.last_name.value|default_if_none:'' }}"
+                    placeholder="{{ form.last_name.label }}" 
+                    aria-label="{{ form.last_name.label }}" 
+                    aria-describedby="last-name-addon"/>
+                {% if 'last_name' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.last_name.errors.as_text }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+
+
+        <div class="col">
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.password.id_for_label }}"
+                    id="password-addon">
+                        <i class="bi bi-lock-fill"></i>
+                </label>
+                <input 
+                    type="password" 
+                    class="form-control {{ form.password.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.password.html_name }}"
+                    id="{{ form.password.id_for_label }}"
+                    value="{{ form.password.value|default_if_none:'' }}"
+                    placeholder="{{ form.password.label }}" 
+                    aria-label="{{ form.password.label }}" 
+                    aria-describedby="password-addon"/>
+
+                {% if 'password' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.password.errors }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col">
+            <div class="input-group mb-3">
+                <label 
+                    class="input-group-text" 
+                    for="{{ form.phone.id_for_label }}"
+                    id="phone-addon">
+                       <i class="bi bi-telephone-fill"></i>
+                </label>
+                <input 
+                    type="number" 
+                    class="form-control {{ form.phone.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.phone.html_name }}"
+                    id="{{ form.phone.id_for_label }}"
+                    value="{{ form.phone.value|default_if_none:'' }}"
+                    placeholder="{{ form.phone.label }}" 
+                    aria-label="{{ form.phone.label }}" 
+                    aria-describedby="phone"/>
+
+                {% if 'phone' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.phone.errors }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Надіслати</button>
+        </div>
+    </form>
+</form>
+{% endblock %}

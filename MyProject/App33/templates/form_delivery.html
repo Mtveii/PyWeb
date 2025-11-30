@@ -1,0 +1,262 @@
+{% extends "_layout.html" %}
+
+{% block title %}Forms{% endblock %}
+
+{% block content %}
+
+<div class ="row_deliveri" >
+
+    <div class ="col col col-xxl-6 offset-xxl-3 col-xl-8 offset-xl-2 col-lg-10 col-md-12 offset-md-0">
+        <form method="post">
+            <h1 class="display-5">Delivery Confirmation Form</h1>
+            {% csrf_token %}
+            <div class="row">
+                <H2 class ="fs-5">Name</H2>
+                <div class="col ">        
+                    <div class="input-group mb-3">
+                        <input type="text" 
+                            class="form-control {{ form.first_name.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.first_name.html_name }}"
+                            id="{{ form.first_name.id_for_label }}"
+                            value="{{ form.first_name.value|default_if_none:'' }}"
+                            placeholder="{{ form.first_name.label }}" 
+                            aria-label="{{ form.first_name.label }}" 
+                            aria-describedby="first-name-addon"/>
+
+                        {% if 'first_name' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.first_name.errors.as_text }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>  
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input 
+                            type="text" 
+                            class="form-control {{ form.last_name.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.last_name.html_name }}"
+                            id="{{ form.last_name.id_for_label }}"
+                            value="{{ form.last_name.value|default_if_none:'' }}"
+                            placeholder="{{ form.last_name.label }}" 
+                            aria-label="{{ form.last_name.label }}" 
+                            aria-describedby="last-name-addon"/>
+                        {% if 'last_name' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.last_name.errors.as_text }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <H5 class ="fs-5">Address</H2>
+                <div class="row2">
+                    <div class="input-group mb-3">
+                        <input 
+                            type="text" 
+                            class="form-control {{ form.Street_Address.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.Street_Address.html_name }}"
+                            id="{{ form.Street_Address.id_for_label }}"
+                            value="{{ form.Street_Address.value|default_if_none:'' }}"
+                            placeholder="{{ form.Street_Address.label }}" 
+                            aria-label="{{ form.Street_Address.label }}" 
+                            aria-describedby="Street_Address-addon"/>
+
+                        {% if 'Street_Address' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.Street_Address.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row2">
+                    <div class="input-group mb-3">
+                        <input 
+                            type="text" 
+                            class="form-control {{ form.Street_Address_L2.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.Street_Address_L2.html_name }}"
+                            id="{{ form.Street_Address_L2.id_for_label }}"
+                            value="{{ form.Street_Address_L2.value|default_if_none:'' }}"
+                            placeholder="{{ form.Street_Address_L2.label }}" 
+                            aria-label="{{ form.Street_Address_L2.label }}" 
+                            aria-describedby="Street_Address_L2-addon"/>
+
+                        {% if 'Street_Address_L2' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.Street_Address_L2.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input 
+                            type="text" 
+                            class="form-control {{ form.City.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.City.html_name }}"
+                            id="{{ form.City.id_for_label }}"
+                            value="{{ form.City.value|default_if_none:'' }}"
+                            placeholder="{{ form.City.label }}" 
+                            aria-label="{{ form.City.label }}" 
+                            aria-describedby="City-addon"/>
+
+                        {% if 'City' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.City.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input 
+                            type="text" 
+                            class="form-control {{ form.Region.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.Region.html_name }}"
+                            id="{{ form.Region.id_for_label }}"
+                            value="{{ form.Region.value|default_if_none:'' }}"
+                            placeholder="{{ form.Region.label }}" 
+                            aria-label="{{ form.Region.label }}" 
+                            aria-describedby="Region-addon"/>
+
+                        {% if 'Region' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.Region.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input 
+                            type="text" 
+                            class="form-control {{ form.index.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.index.html_name }}"
+                            id="{{ form.index.id_for_label }}"
+                            value="{{ form.index.value|default_if_none:'' }}"
+                            placeholder="{{ form.index.label }}" 
+                            aria-label="{{ form.index.label }}" 
+                            aria-describedby="index-addon"/>
+
+                        {% if 'index' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.index.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input 
+                            type="password" 
+                            class="form-control {{ form.Romania.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.Romania.html_name }}"
+                            id="{{ form.Romania.id_for_label }}"
+                            value="{{ form.Romania.value|default_if_none:'' }}"
+                            placeholder="{{ form.Romania.label }}" 
+                            aria-label="{{ form.Romania.label }}" 
+                            aria-describedby="Romania-addon"/>
+
+                        {% if 'Romania' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.Romania.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row2">
+            <H2 class ="fs-5">Date of Delivery</H2>
+                <div class="input-group mb-3">
+                    <input 
+                        type="date" 
+                        class="form-control {{ form.Date.errors | yesno:'is-invalid, , '}}"
+                        name="{{ form.Date.html_name }}"
+                        id="{{ form.Date.id_for_label }}"
+                        value="{{ form.Date.value|default_if_none:'' }}"
+                        placeholder="{{ form.Date.label }}" 
+                        aria-label="{{ form.Date.label }}" 
+                        aria-describedby="Date-addon"/>
+
+                    {% if 'Date' in form.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.Date.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row2">
+                <H2 class ="fs-5">Time of Delivery</H2>
+
+                <div class="input-group mb-3">
+                <input 
+                    type="time" 
+                    class="form-control {{ form.Time.errors | yesno:'is-invalid, , '}}"
+                    name="{{ form.Time.html_name }}"
+                    id="{{ form.Time.id_for_label }}"
+                    value="{{ form.Time.value|default_if_none:'' }}"
+                    placeholder="{{ form.Time.label }}" 
+                    aria-label="{{ form.Time.label }}" 
+                    aria-describedby="Time-addon"/>
+
+                {% if 'Time' in form.errors %}
+                <div class="invalid-feedback">
+                    {{ form.Time.errors }}
+                </div>
+                {% endif %}
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-check">
+                        <input 
+                            class="form-check-input {{ form.is_agree.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.is_agree.html_name }}"
+                            id="{{ form.is_agree.id_for_label }}"
+                            type="checkbox" />
+                            
+                        <label 
+                            class="form-check-label" 
+                            for="{{ form.is_agree.id_for_label }}">
+                            {{ form.is_agree.help_text }}
+                        </label>
+
+                        {% if 'is_agree' in form.errors %}
+                        <div class="invalid-feedback">
+                            {{ form.is_agree.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Надіслати</button>
+                </div>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+{% endblock %}
+col col-xxl-6 offset-xxl-3 col-xl-8 offset-xl-2 col-lg-10 col-md-12 offset-md-0

@@ -1,0 +1,15 @@
+{% extends "_layout.html" %}
+
+{% block title %}Товар{% endblock %}
+
+{% block content %}
+<h1 class="display-4 mb-4">Додати товар</h1>
+<form method="post" class="col-md-6">
+    {% csrf_token %}
+    <table class="table">
+        {{ form.as_table }}
+    </table>
+    <button type="submit" class="btn btn-primary">Зберегти</button>
+</form>
+{% endblock %}
+
