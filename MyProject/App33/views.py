@@ -134,9 +134,20 @@ def signup(request) :
             user.birthdate  = form_data['birthdate']
             user.save()
 
+            # Отримуємо або створюємо роль "Self registered" якщо її немає
+            role, created = Role.objects.get_or_create(
+                name="Self registered",
+                defaults={
+                    'create_level': 0,
+                    'read_level': 0,
+                    'update_level': 0,
+                    'delete_level': 0
+                }
+            )
+            
             user_access = Access()
             user_access.user  = user
-            user_access.role  = Role.objects.get(name="Self registered")
+            user_access.role  = role
             user_access.login = form_data['login']
             user_access.salt  = _salt
             user_access.dk    = _dk

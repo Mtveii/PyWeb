@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 # Моделі - це класи, призначені для відображення на базу даних
@@ -33,6 +34,20 @@ class Access(models.Model) :
     salt  = models.CharField(max_length=32)    # PKCS #5: Password-Based Cryptography
     dk    = models.CharField(max_length=32)    # https://datatracker.ietf.org/doc/html/rfc2898
 
+# -------------------дз----------------
+class AccessLog(models.Model):
+    """Журнал доступу до сайту"""
+    access_datetime = models.DateTimeField(default=timezone.now, verbose_name="Дата-час доступу")
+    status_code = models.IntegerField(verbose_name="Статус відповіді сервера")
+    
+    def __str__(self):
+        return f"{self.access_datetime.strftime('%Y-%m-%d %H:%M:%S')} - {self.status_code}"
+    
+    class Meta:
+        verbose_name = "Журнал доступу"
+        verbose_name_plural = "Журнали доступу"
+        ordering = ['-access_datetime']
+#---------------------------------------
 
 '''
 Д.З. Реалізувати представлення моделі користувача у панелі адміністратора
