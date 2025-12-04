@@ -159,19 +159,25 @@
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
-                        <input 
-                            type="password" 
-                            class="form-control {{ form.Romania.errors | yesno:'is-invalid, , '}}"
-                            name="{{ form.Romania.html_name }}"
-                            id="{{ form.Romania.id_for_label }}"
-                            value="{{ form.Romania.value|default_if_none:'' }}"
-                            placeholder="{{ form.Romania.label }}" 
-                            aria-label="{{ form.Romania.label }}" 
-                            aria-describedby="Romania-addon"/>
+                        <select 
+                            class="form-select {{ form.country.errors | yesno:'is-invalid, , '}}"
+                            name="{{ form.country.html_name }}"
+                            id="{{ form.country.id_for_label }}"
+                            aria-label="{{ form.country.label }}"
+                            aria-describedby="country-addon">
+                            <option value="">Оберіть країну</option>
+                            {% for value, label in form.country.field.choices %}
+                                {% if value %}
+                                <option value="{{ value }}" {% if form.country.value == value %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
 
-                        {% if 'Romania' in form.errors %}
+                        {% if 'country' in form.errors %}
                         <div class="invalid-feedback">
-                            {{ form.Romania.errors }}
+                            {{ form.country.errors }}
                         </div>
                         {% endif %}
                     </div>

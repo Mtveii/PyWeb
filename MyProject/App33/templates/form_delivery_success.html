@@ -1,0 +1,48 @@
+{% extends "_layout.html" %}
+
+{% block title %}Підтвердження замовлення{% endblock %}
+
+{% block content %}
+
+<div class="row_deliveri">
+    <div class="col col-xxl-6 offset-xxl-3 col-xl-8 offset-xl-2 col-lg-10 col-md-12 offset-md-0">
+        <div class="card border-success mb-3">
+            <div class="card-header bg-success text-white">
+                <h1 class="display-5 mb-0">ПРИЙНЯТЕ ЗАМОВЛЕННЯ</h1>
+            </div>
+            <div class="card-body">
+                <div class="mb-4">
+                    <h3 class="fs-4 mb-3">Одержувач</h3>
+                    <p class="fs-5">
+                        <strong>{{ form_data.first_name }} {{ form_data.last_name }}</strong>
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="fs-4 mb-3">Адреса</h3>
+                    <p class="fs-5">
+                        {% if form_data.index %}{{ form_data.index }}, {% endif %}
+                        {% if form_data.country == "ua" %}Україна
+                        {% elif form_data.country == "pl" %}Польша
+                        {% elif form_data.country == "cz" %}Чехія
+                        {% else %}{{ form_data.country }}{% endif %},
+                        {{ form_data.Region }},
+                        {{ form_data.City }},
+                        {{ form_data.Street_Address }}
+                        {% if form_data.Street_Address_L2 %}, {{ form_data.Street_Address_L2 }}{% endif %}
+                    </p>
+                </div>
+
+                <div class="mb-4">
+                    <h3 class="fs-4 mb-3">Дата та час доставки</h3>
+                    <p class="fs-5">
+                        <strong>{{ form_data.Date|date:"d.m.Y" }}</strong> о <strong>{{ form_data.Time|time:"H:i" }}</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -23,16 +23,24 @@ class Role(models.Model) :
         return f"{self.name} ({self.create_level},{self.read_level},{self.update_level},{self.delete_level})"
 
 
-
 class Access(models.Model) :
     user  = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     role  = models.ForeignKey(Role, on_delete=models.DO_NOTHING)
 
-    login = models.CharField(max_length=32)    # https://www.rfc-editor.org/rfc/rfc7617
+    login = models.CharField(max_length=32)   
     
-    salt  = models.CharField(max_length=32)    # PKCS #5: Password-Based Cryptography
-    dk    = models.CharField(max_length=32)    # https://datatracker.ietf.org/doc/html/rfc2898
+    salt  = models.CharField(max_length=32)    
+    dk    = models.CharField(max_length=32)    
 
+# ---------дз -----------
+class AccessLog(models.Model) :
+    datetime    = models.DateTimeField(auto_now_add=True) 
+    access      = models.ForeignKey(Access, on_delete=models.CASCADE)  
+    status_code = models.IntegerField()  
+    
+    def __str__(self):
+        return f"{self.datetime.strftime('%Y-%m-%d %H:%M:%S')} - {self.access.login} - {self.status_code}"
+# ---------дз -----------
 
 '''
 Д.З. Реалізувати представлення моделі користувача у панелі адміністратора

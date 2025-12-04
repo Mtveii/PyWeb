@@ -22,3 +22,14 @@ class AccessAdmin(admin.ModelAdmin):
     list_display = ('login','user', 'role')
 
 admin.site.register(Access, AccessAdmin)
+
+# ---------дз -----------
+class AccessLogAdmin(admin.ModelAdmin):
+    list_display = ('datetime', 'access', 'status_code')
+    list_filter = ('status_code', 'datetime')
+    search_fields = ('access__login', 'access__user__first_name', 'access__user__last_name')
+    readonly_fields = ('datetime',)
+    date_hierarchy = 'datetime'
+
+admin.site.register(AccessLog, AccessLogAdmin)
+# ---------дз -----------

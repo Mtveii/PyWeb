@@ -20,16 +20,25 @@ def clonning(request) :
 
 
 def form_delivery(request) :
-    template = loader.get_template('form_delivery.html')
     if request.method == 'GET' :
+        template = loader.get_template('form_delivery.html')
         context = {
             'form': DeliveryForm()
         }
     elif request.method == 'POST' :
         form = DeliveryForm(request.POST)
-        context = {
-            'form': form
-        }
+        if form.is_valid() :
+            template = loader.get_template('form_delivery_success.html')
+            context = {
+                'form_data': form.cleaned_data
+            }
+        else :
+            template = loader.get_template('form_delivery.html')
+            context = {
+                'form': form
+            }
+    else :
+        return HttpResponseNotAllowed(['GET', 'POST'])
     return HttpResponse( template.render(context=context, request=request) )
 
 
@@ -136,7 +145,7 @@ def signup(request) :
 
             user_access = Access()
             user_access.user  = user
-            user_access.role  = Role.objects.get(name="Self registered")
+            user_access.role, _ = Role.objects.get_or_create(name="Self registered")
             user_access.login = form_data['login']
             user_access.salt  = _salt
             user_access.dk    = _dk
