@@ -1,4 +1,5 @@
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.template import loader
 from .forms.demo_form import DemoForm
@@ -10,9 +11,40 @@ from datetime import datetime
 from .forms.form_user import form_user as FormUser
 from .helper import * 
 from .models import *
+import base64
+
 
 # технічно представлення - це функції, які приймають
 # запит (request) та формують відповідь (response)
+
+def auth(request) :
+    authHeader = request.headers.get("Authorization")
+    if not authHeader :
+        return HttpResponse("Missing 'Authorization' header", status=401)
+    authScheme = "Basic "
+    if not authHeader.startswith(authScheme) :
+        return HttpResponse("Invalid 'Authorization' scheme", status=401)
+    credentials = authHeader[len(authScheme):]
+    if len(credentials) < 4 :
+        return HttpResponse("Credentials too short", status=401)
+    try :
+        user_pass = base64.b64decode(credentials).decode()
+    except Exception as err :
+        return HttpResponse("Credentials decode error: " + str(err), status=401)
+    parts = user_pass.split(':', 1)
+    if len(parts) != 2 :
+        return HttpResponse("User-pass decode error", status=401)
+    login, password = parts
+    try :
+        access = Access.objects.get(login=login)    
+    except Access.DoesNotExist :
+        return HttpResponse("Authorization rejected", status=401)
+    _salt = access.salt
+    _dk = dk(password, _salt)
+    if _dk != access.dk :
+        return HttpResponse("Authorization rejected.", status=401)
+    return HttpResponse(access.id, status=200)
+
 
 def clonning(request) :
     template = loader.get_template('clonning.html')
@@ -116,6 +148,77 @@ def params(request) :
     До звіту додавати скріншоти'''
     template = loader.get_template('params.html')
     return HttpResponse( template.render(context, request) )
+
+@csrf_exempt
+def seed(request) :
+    if request.method == 'PATCH' :
+        res = {
+            "guest": "",
+            "admin-role": "",
+            "admin-user": ""
+        }
+        try :
+            guest = Role.objects.get(name="Self registered")
+        except Role.DoesNotExist :
+            guest = Role()
+            guest.name = "Self registered"
+            res["guest"] = "created"
+        else :
+            res["guest"] = "updated"
+        guest.create_level = guest.read_level = guest.update_level = guest.delete_level = 0
+        guest.save()
+
+        try :
+            admin = Role.objects.get(name="Root Administrator")    
+        except Role.DoesNotExist :
+            admin = Role()
+            admin.name = "Root Administrator"
+            res["admin-role"] = "created"
+        else : 
+            res["admin-role"] = "updated"
+        admin.create_level = admin.read_level = admin.update_level = admin.delete_level = 1
+        admin.save()
+        
+        
+        try :
+            admin = User.objects.get(first_name="Default", last_name='Administrator')    
+        except User.DoesNotExist :
+            admin = User()
+            admin.first_name = "Default"
+            admin.last_name  = 'Administrator'
+            admin.email      = 'admin@change.me'
+            admin.phone      = '0000000000'
+            admin.save()
+            res["admin-user"] = "created"
+        else : 
+            res["admin-user"] = "ignored"
+
+            
+        try :
+            admin_access = Access.objects.get(user=admin)    
+        except Access.DoesNotExist :
+            admin_access = Access()
+            res["admin-access"] = "created"
+        else : 
+            res["admin-access"] = "updated"
+        _salt = salt()
+        _dk = dk('root', _salt)
+        admin_access.user  = admin
+        admin_access.role  = Role.objects.get(name="Root Administrator")
+        admin_access.login = 'admin'
+        admin_access.salt  = _salt
+        admin_access.dk    = _dk
+        admin_access.save()
+        '''
+        Д.З. Розширити метод сідування, додати тестового користувача
+        з гостьовою роллю. Якщо немає - створювати, якщо є - оновлювати 
+        логін та пароль
+        '''
+        return JsonResponse(res)
+    
+    else :
+        template = loader.get_template('seed.html')
+        return HttpResponse( template.render() )
 
 
 def signup(request) :
