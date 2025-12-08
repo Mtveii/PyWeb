@@ -4,21 +4,23 @@
    "піднятись" вище 
    > cd ..
    оновити 
-   > python -m venv PyWebP33
+   > python -m venv PyWeb
    Якщо пайтон не запускається або видає неочікувані результати (Python)
    то знаходимо Пайтон на ПК або встановлюємо, якщо не знайдено
    Формуємо команду з повним розташуванням:
-   > & "C://Повне розташування/python.exe" -m venv PyWebP33
+   > & "C://Повне розташування/python.exe" -m venv PyWeb
 
 3. Заходимо до директорії проєкту 
-   > cd PyWebP33
+   > cd PyWeb
 4. Активуємо віртуальне середовище 
    > ./Scripts/Activate.ps1 
 5. Відновлюємо залежності (бібліотеки)
    pip install -r libs.txt
 6. Заходимо до проєкту
-   > cd Project33
+   > cd MyProject
 7. Виконуємо міграції
    > python manage.py migrate
-8. Запускаємо сервер 
+8. создаеми superuser
+   > python manage.py createsuperuser
+9. Запускаємо сервер 
    > python manage.py runserver

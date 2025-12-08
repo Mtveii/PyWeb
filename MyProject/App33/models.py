@@ -10,6 +10,10 @@ class User(models.Model) :                         # в моделях ID ств
     phone      = models.CharField(max_length=16)    
     birthdate  = models.DateField(null=True)  
 
+    def __str__(self):
+        # В адмінці та звітах користувач показується як Name(id=2)LastName
+        return f"{self.first_name}(id={self.id}){self.last_name}"
+
 
 
 class Role(models.Model) :
