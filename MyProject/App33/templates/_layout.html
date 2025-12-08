@@ -47,7 +47,7 @@
                         <a class="nav-link" 
                            title="Форми:Практика. Форма доставки замовлення"
                            href="/form-delivery">
-                            <i class="bi bi-truck" style="font-size: 1.5rem;"></i>
+                            <i class="bi bi-truck me-3" style="font-size: 1.5rem;"></i>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -80,6 +80,11 @@
                    href="/signup">
                     <i class="bi bi-person-add me-3" style="font-size: 1.5rem;"></i>
                 </a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-secondary" 
+                    data-bs-toggle="modal" data-bs-target="#authModal">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                </button>
                 </div>
             </div>
         </nav>
@@ -92,59 +97,62 @@
     <footer class="bg-body-tertiary border-top">
         &copy; 2025, IT STEP Academy
     </footer>
-    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h1 class="modal-title fs-5" id="authModalLabel">Автентифікація</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="input-group mb-3">
-                <label 
-                    class="input-group-text" 
-                    for="auth-modal-login"
-                    id="auth-modal-login-addon">
-                        <i class="bi bi-key"></i>
-                </label>
-                <input 
-                    type="text" 
-                    class="form-control"
-                    id="auth-modal-login"
-                    placeholder="Логін" 
-                    aria-label="Логін" 
-                    aria-describedby="auth-modal-login-addon"/>
-                <div class="invalid-feedback">
-                    Неприпустиме значення
-                </div>
-            </div>
 
-            <div class="input-group mb-3">
-                <label 
-                    class="input-group-text" 
-                    for="auth-modal-password"
-                    id="auth-modal-password-addon">
-                        <i class="bi bi-lock"></i>
-                </label>
-                <input 
-                    type="password" 
-                    class="form-control"
-                    id="auth-modal-password"
-                    placeholder="Пароль" 
-                    aria-label="Пароль" 
-                    aria-describedby="auth-modal-password-addon"/>
-                <div class="invalid-feedback">
-                    Неприпустиме значення
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="authModalLabel">Автентифікація</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+            <label 
+                class="input-group-text" 
+                for="auth-modal-login"
+                id="auth-modal-login-addon">
+                    <i class="bi bi-key"></i>
+            </label>
+            <input 
+                type="text" 
+                class="form-control"
+                id="auth-modal-login"
+                placeholder="Логін" 
+                aria-label="Логін" 
+                aria-describedby="auth-modal-login-addon"/>
+            <div class="invalid-feedback">
+                Неприпустиме значення
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
-            <button type="button" class="btn btn-primary" id="auth-modal-btn">Увійти</button>
+
+        <div class="input-group mb-3">
+            <label 
+                class="input-group-text" 
+                for="auth-modal-password"
+                id="auth-modal-password-addon">
+                    <i class="bi bi-lock"></i>
+            </label>
+            <input 
+                type="password" 
+                class="form-control"
+                id="auth-modal-password"
+                placeholder="Пароль" 
+                aria-label="Пароль" 
+                aria-describedby="auth-modal-password-addon"/>
+            <div class="invalid-feedback">
+                Неприпустиме значення
+            </div>
         </div>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+        <button type="button" class="btn btn-primary" id="auth-modal-btn">Увійти</button>
+      </div>
     </div>
-    </div>
+  </div>
+</div>
+
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/site.js' %}"></script>
 </body>
