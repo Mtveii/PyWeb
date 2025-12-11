@@ -209,18 +209,45 @@ def seed(request) :
         admin_access.salt  = _salt
         admin_access.dk    = _dk
         admin_access.save()
-        '''
-        Д.З. Розширити метод сідування, додати тестового користувача
-        з гостьовою роллю. Якщо немає - створювати, якщо є - оновлювати 
-        логін та пароль
-        '''
+# ========== ДЗ ==============        
+        # Додавання тестового користувача з гостьовою роллю
+        try:
+            guest_user = User.objects.get(first_name="Test", last_name="Guest")
+        except User.DoesNotExist:
+            guest_user = User()
+            guest_user.first_name = "Test"
+            guest_user.last_name = "Guest"
+            guest_user.email = "guest@test.com"
+            guest_user.phone = "9999999999"
+            guest_user.save()
+            res["guest-user"] = "created"
+        else:
+            res["guest-user"] = "updated"
+        
+        try:
+            guest_access = Access.objects.get(user=guest_user)
+        except Access.DoesNotExist:
+            guest_access = Access()
+            res["guest-access"] = "created"
+        else:
+            res["guest-access"] = "updated"
+        
+        _salt = salt()
+        _dk = dk('guest', _salt)
+        guest_access.user = guest_user
+        guest_access.role = Role.objects.get(name="Self registered")
+        guest_access.login = 'guest'
+        guest_access.salt = _salt
+        guest_access.dk = _dk
+        guest_access.save()
+        
         return JsonResponse(res)
     
     else :
         template = loader.get_template('seed.html')
         return HttpResponse( template.render() )
 
-
+# ========== ДЗ ==============
 def signup(request) :
     template = loader.get_template('signup.html')
     if request.method == 'GET' :
